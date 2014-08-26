@@ -1,0 +1,5 @@
+fixtures:
+  repositories:
+    gpg_key: "git://github.com/puppetlabs/puppetlabs-concat"
+  symlinks:
+    adoberepo: "#{source_dir}"
