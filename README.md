@@ -48,7 +48,7 @@ TIMESTAMP=`/bin/date +%F`
 
 # database2
 /usr/bin/mysqldump --routines -u ${MYSQL_USER} -p${MYSQL_PASS} database2 | /bin/gzip > /var/backup/database2-${TIMESTAMP}.sql.gz
-```shell
+```
 
 ### Parameters
 
