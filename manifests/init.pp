@@ -6,8 +6,6 @@ class mysqldump (
   $gzip_path         = $mysqldump::params::gzip_path,
   $mysqldump_options = $mysqldump::params::mysqldump_options,
   $mysqldump_path    = $mysqldump::params::mysqldump_path,
-  $mysql_user        = $mysqldump::params::mysql_user,
-  $mysql_password    = $mysqldump::params::mysql_password,
   $scripts_dir       = $mysqldump::params::scripts_dir,
 ) inherits mysqldump::params {
 
