@@ -7,6 +7,10 @@ class mysqldump::params {
   $gzip_path         = '/bin/gzip'
   $mysqldump_options = '--routines'
   $mysqldump_path    = '/usr/bin/mysqldump'
-  $scripts_dir       = '/var/scripts/backup_scripts'
+  $script_dir        = '/var/scripts/backup_scripts'
+  $script_file_group = 'root'
+  $script_file_mode  = '0700'
+  $script_file_name  = 'backup_mysql_databases.sh'
+  $script_file_owner = 'root'
 
 }

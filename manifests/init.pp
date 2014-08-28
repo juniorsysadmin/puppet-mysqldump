@@ -6,23 +6,27 @@ class mysqldump (
   $gzip_path         = $mysqldump::params::gzip_path,
   $mysqldump_options = $mysqldump::params::mysqldump_options,
   $mysqldump_path    = $mysqldump::params::mysqldump_path,
-  $scripts_dir       = $mysqldump::params::scripts_dir,
+  $script_dir        = $mysqldump::params::script_dir,
+  $script_file_group = $mysqldump::params::script_file_group,
+  $script_file_mode  = $mysqldump::params::script_file_mode,
+  $script_file_name  = $mysqldump::params::script_file_name,
+  $script_file_owner = $mysqldump::params::script_file_owner,
 ) inherits mysqldump::params {
 
   
-  concat { "${scripts_dir}/backup_mysql_databases.sh":
+  concat { "${script_dir}/${script_file_name}":
     ensure         => 'present',
     ensure_newline => true,
-    group          => 'root',
-    owner          => 'root',
-    mode           => '0770',
+    group          => $script_file_group,
+    mode           => $script_file_mode,
+    owner          => $script_file_owner,
     replace        => true,
   }
     
   concat::fragment { 'backup_mysql_script_header':
-    target  => "${scripts_dir}/backup_mysql_databases.sh",
     content => template('mysqldump/mysql-backup-header.erb'),
     order   => '01',
+    target  => "${script_dir}/${script_file_name}",
   }
 
 }

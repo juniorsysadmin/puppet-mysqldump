@@ -6,12 +6,14 @@ define mysqldump::backup (
   $gzip_path         = $mysqldump::gzip_path,
   $mysqldump_options = $mysqldump::mysqldump_options,
   $mysqldump_path    = $mysqldump::mysqldump_path,
-  $scripts_dir       = $mysqldump::scripts_dir,
+  $script_dir        = $mysqldump::script_dir,
+  $script_file_name  = $mysqldump::script_file_name,
 ) {
 
   $db = $name
+
   concat::fragment { $name:
-    target  => "${scripts_dir}/backup_mysql_databases.sh",
+    target  => "${script_dir}/${script_file_name}",
     content => template('mysqldump/mysql-backup-fragment.erb'),
     order   => '10',
   }
