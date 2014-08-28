@@ -1,8 +1,8 @@
 {
   "name": "juniorsysadmin-mysqldump",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Ben Spiccia",
-  "summary": "Module for installing a simple Bash script which backs up MySQL databases",
+  "summary": "Module for installing a simple shell script which backs up MySQL databases",
   "license": "Apache License, Version 2.0",
   "source": "git://github.com/juniorsysadmin/puppet-mysqldump.git",
   "project_page": "https://github.com/juniorsysadmin/puppet-mysqldump",
