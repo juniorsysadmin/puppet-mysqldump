@@ -15,12 +15,10 @@ class mysqldump (
 
   
   concat { "${script_dir}/${script_file_name}":
-    ensure         => 'present',
     ensure_newline => true,
     group          => $script_file_group,
     mode           => $script_file_mode,
     owner          => $script_file_owner,
-    replace        => true,
   }
     
   concat::fragment { 'backup_mysql_script_header':
