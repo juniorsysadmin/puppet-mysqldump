@@ -14,3 +14,4 @@ class mysqldump::params {
   $script_file_owner = 'root'
 
 }
+
