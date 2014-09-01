@@ -1,3 +1,3 @@
 # <%= @db %>
-<%= @mysqldump_path -%> <%= @mysqldump_options -%> <%= @db -%> | <%= @gzip_path -%> > <%= @dump_dir -%>/<%= @db -%>-${TIMESTAMP}.sql.gz
+<%= @mysqldump_path -%> <% if mysqldump_options != '' -%><%= @mysqldump_options -%> <% end -%><%= @db -%> | <%= @gzip_path -%> > <%= @dump_dir -%>/<%= @db -%>-${TIMESTAMP}.sql.gz
 
