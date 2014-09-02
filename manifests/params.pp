@@ -3,7 +3,7 @@ class mysqldump::params {
 
   $date_format       = '+%F'
   $date_path         = '/bin/date'
-  $dump_dir          = '/var/backup'
+  $dump_root_dir     = '/var/backup'
   $gzip_path         = '/bin/gzip'
   $mysqldump_options = ''
   $mysqldump_path    = '/usr/bin/mysqldump'

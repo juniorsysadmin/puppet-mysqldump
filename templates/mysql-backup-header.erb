@@ -5,5 +5,10 @@
 # MySQL credentials will be based off the .my.cnf file in the user's home
 # directory
 
+SUBDIRECTORY=""
 TIMESTAMP=$(<%= @date_path -%> <%= @date_format -%>)
+
+if [ -n "$1" ]; then
+  SUBDIRECTORY="$1"
+fi
 

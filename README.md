@@ -21,7 +21,17 @@ puppetlabs-mysql module.
 By default the shell script is placed in the folder
 /var/scripts/backup-scripts . `script_dir` needs to exist.
 
-The default `dump_dir` is /var/backup . It also needs to exist.
+The default `dump_root_dir` is /var/backup . It also needs to exist.
+
+A subdirectory can optionally be passed to the shell script. This allows you
+to output dumps to a specific directory depending on when the script gets
+called.
+
+For example:
+
+```
+/var/scripts/backup-scripts/backup_mysql_databases.sh weekly
+```
 
 This scripts uses MySQL user/password credentials listed in the .my.cnf file of
 the executed user's home directory. The .my.cnf file will need to look
@@ -36,8 +46,16 @@ password=secret
 ## Usage
 
 ```puppet
-class { '::mysqldump': }
-mysqldump::backup { 'database1': }
+class { '::mysqldump':
+  dump_root_dir     => '/var/backup/other',
+  mysqldump_options => '--routines',
+}
+
+mysqldump::backup { 'database1':
+  dump_root_dir     => '/var/backup/sales',
+  mysqldump_options => '--ignore-table=foo',
+}
+
 mysqldump::backup { 'database2': }
 ...
 ```
@@ -52,13 +70,18 @@ will result in:
 # MySQL credentials will be based off the .my.cnf file in the user's home
 # directory
 
+SUBDIRECTORY=""
 TIMESTAMP=$(/bin/date +%F)
 
+if [ -n "$1" ]; then
+  SUBDIRECTORY="$1"
+fi
+
 # database1
-/usr/bin/mysqldump --routines database1 | /bin/gzip > /var/backup/database1-${TIMESTAMP}.sql.gz
+/usr/bin/mysqldump --ignore-table=foo database1 | /bin/gzip > /var/backup/sales/$SUBDIRECTORY/database1-${TIMESTAMP}.sql.gz
 
 # database2
-/usr/bin/mysqldump --routines database2 | /bin/gzip > /var/backup/database2-${TIMESTAMP}.sql.gz
+/usr/bin/mysqldump --routines database2 | /bin/gzip > /var/backup/other/$SUBDIRECTORY/database2-${TIMESTAMP}.sql.gz
 ```
 
 ### Parameters
@@ -73,9 +96,10 @@ The format options passed to the date command. Defaults to +%F
 
 Path to the date command. Defaults to /bin/date
 
-#### `dump_dir`
+#### `dump_root_dir`
 
-Where to put the MySQL dumps. Defaults to /var/backup
+Where to put the MySQL dumps (if the script is invoked with no subdirectory
+argument). Defaults to /var/backup
 
 #### `gzip_path`
 

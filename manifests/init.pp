@@ -2,7 +2,7 @@
 class mysqldump (
   $date_format       = $mysqldump::params::date_format,
   $date_path         = $mysqldump::params::date_path,
-  $dump_dir          = $mysqldump::params::dump_dir,
+  $dump_root_dir     = $mysqldump::params::dump_root_dir,
   $gzip_path         = $mysqldump::params::gzip_path,
   $mysqldump_options = $mysqldump::params::mysqldump_options,
   $mysqldump_path    = $mysqldump::params::mysqldump_path,
