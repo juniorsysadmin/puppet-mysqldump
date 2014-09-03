@@ -10,9 +10,10 @@ define mysqldump::backup (
   $script_file_name  = $mysqldump::script_file_name,
 ) {
 
-  $db = $name
+  $concat_name = "mysqldump-${name}"
+  $db          = $name
 
-  concat::fragment { $name:
+  concat::fragment { $concat_name:
     target  => "${script_dir}/${script_file_name}",
     content => template('mysqldump/mysql-backup-fragment.erb'),
     order   => '10',
